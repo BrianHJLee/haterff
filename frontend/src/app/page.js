@@ -12,23 +12,47 @@ export default function Home() {
   const [leagueSelectorOpen, setLeagueSelectorOpen] = useState(false);
   const [leagues, setLeagues] = useState([{ name: 'Test League', id: 123}, { name: 'Test League 2', id: 456}]);
 
-  const [selectedLeagueName, setSelectedLeagueName] = useState(null);
-  const [selectedLeagueId, setSelectedLeagueId] = useState(null);
+  const [selectedLeagueName, setSelectedLeagueName] = useState('');
+  const [selectedLeagueId, setSelectedLeagueId] = useState('');
   const [wallVisible, setWallVisible] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState('');
 
-  const handleWallOfShameGeneration = (leagueId) => {
+  const [wallData, setWallData] = useState([]);
+
+  const handleWallOfShameGeneration = (league) => {
     setLoading(true);
     setLoadingText('Preparing to hate...');
 
-    // time delay of 5 seconds
-    setTimeout(() => {
+    setSelectedLeagueName(league.name);
+    setSelectedLeagueId(league.id);
+
+    fetch('/api/get_wall?league=' + league.id, {
+      method: 'GET',
+      headers: {
+      'Content-Type': 'application/json',
+      }
+    })
+    .then(response => {
+        if (response.status != 200) {
+            throw new Error("Something went wrong. Please try a different username or try again later.");
+        }
+        return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      setWallData(data);
       setLoading(false);
       setLoadingText('');
       setWallVisible(true);
-    }, 5000)
+    })
+    .catch((error) => {
+        setLoading(false);
+        setLoadingText('');
+
+        alert(error);
+    });
     
   };
 
@@ -42,7 +66,7 @@ export default function Home() {
         </h3>
         { wallVisible ? null : <UsernameForm setLeagueDialogOpen={setLeagueSelectorOpen} setLeagues={setLeagues} setLoading={setLoading} setLoadingText={setLoadingText} /> }
         <LeagueSelector dialogOpen={leagueSelectorOpen} setDialogOpen={setLeagueSelectorOpen} leagues={leagues} setLoading={setLoading} setLoadingText={setLoadingText} generator={handleWallOfShameGeneration} />
-        { wallVisible ? <WallOfShame /> : null }
+        { wallVisible ? <WallOfShame data={wallData} /> : null }
         <LoadingSpinner open={loading} text={loadingText} />
       </main>
       <footer className={styles.footer}>

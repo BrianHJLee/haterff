@@ -1,10 +1,34 @@
 'use client'
 
-export default function WallOfShame() {
+import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
+
+export default function WallOfShame({ data}) {
     return (
-        <div>
-            <h1>Wall of Shame</h1>
-            <p>Coming soon...</p>
-        </div>
+        <TableContainer component={Paper}>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Rank</TableCell>
+                        <TableCell>Season</TableCell>
+                        <TableCell>Week</TableCell>
+                        <TableCell>User</TableCell>
+                        <TableCell>Team</TableCell>
+                        <TableCell>Score</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {data.map((row) => (
+                        <TableRow key={row.rank}>
+                            <TableCell>{row.rank}</TableCell>
+                            <TableCell>{row.season}</TableCell>
+                            <TableCell>{row.week}</TableCell>
+                            <TableCell>{row.user_name}</TableCell>
+                            <TableCell>{row.team_name}</TableCell>
+                            <TableCell>{row.score}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
     );
 }

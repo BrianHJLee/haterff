@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, abort
 
 import sleeper_utils
+import wall_generator
 
 app = Flask(__name__)
 
@@ -19,3 +20,9 @@ def get_leagues():
         abort(404)
 
     return jsonify(leagues)
+
+@app.route('/get_wall', methods=['GET'])
+def get_wall():
+    league_id = request.args.get('league')
+
+    return jsonify(wall_generator.generate_wall(league_id))
