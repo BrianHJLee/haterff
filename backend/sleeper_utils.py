@@ -21,6 +21,6 @@ def get_leagues(user_id, season):
         return None
 
     for league in response.json():
-        leagues[league['id']] = league['name']
+        leagues[league['league_id']] = league['name']
     
     return leagues
