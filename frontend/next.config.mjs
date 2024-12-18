@@ -4,7 +4,7 @@ const nextConfig = {
         return [
             {
                 source: '/api/:path*',
-                destination: 'http://127.0.0.1:5000/:path*' // Replace with your API URL and port
+                destination: 'http://127.0.0.1:8000/:path*' // Replace with your API URL and port
             }
         ]
     }
