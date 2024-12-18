@@ -8,10 +8,10 @@ export default function UsernameForm({ dialogOpen, setDialogOpen, leagues, setLo
         setDialogOpen(false);
     };
 
-    const handleLeagueSelect = (league_id) => {
+    const handleLeagueSelect = (league) => {
         setDialogOpen(false);
 
-        generator(league_id);
+        generator(league);
     };
 
     return (
@@ -21,7 +21,7 @@ export default function UsernameForm({ dialogOpen, setDialogOpen, leagues, setLo
                 <List>
                     {leagues.map((league) => (
                         <ListItem key={league.id} disablePadding>
-                            <ListItemButton onClick={() => handleLeagueSelect(league.id)}>
+                            <ListItemButton onClick={() => handleLeagueSelect(league)}>
                                 <ListItemText primary={league.name} />
                             </ListItemButton>
                         </ListItem>   
