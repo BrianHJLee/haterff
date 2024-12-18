@@ -23,14 +23,14 @@ export default function UsernameForm({ setLeagueDialogOpen, setLeagues, setLoadi
             return response.json();
         })
         .then(data => {
-            setLoading(false);
-            setLoadingText('');
             let leagues = [];
             for (let league in data) {
                 leagues.push({ name: data[league], id: league });
             }
             setLeagues(leagues);
             setLeagueDialogOpen(true);
+            setLoading(false);
+            setLoadingText('');
         })
         .catch((error) => {
             setLoading(false);
