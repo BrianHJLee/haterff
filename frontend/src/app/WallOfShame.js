@@ -4,7 +4,7 @@ import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody
 
 export default function WallOfShame({ data}) {
     return (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} style={{ overflowX: 'auto', maxWidth: '85vw' }}>
             <Table>
                 <TableHead>
                     <TableRow>
