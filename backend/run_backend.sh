@@ -1,1 +1,1 @@
-gunicorn -w 4 'api:app'
+gunicorn -w 8 'api:app'
