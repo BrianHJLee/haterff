@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import RocketLaunch from '@mui/icons-material/RocketLaunch';
 
-export default function UsernameForm({ setLeagueDialogOpen, setLeagues, setLoading, setLoadingText }) {
+export default function UsernameForm({ setLeagueDialogOpen, setLeagues, setLoading, setLoadingText, setErrorStatus, setErrorTitle, setErrorText }) {
     const [username, setUsername] = useState('');
 
     const handleUsernameSubmit = () => {
@@ -36,7 +36,9 @@ export default function UsernameForm({ setLeagueDialogOpen, setLeagues, setLoadi
             setLoading(false);
             setLoadingText('');
 
-            alert(error);
+            setErrorStatus(true);
+            setErrorTitle('No leagues found');
+            setErrorText('Either your username is incorrect or you have no leagues. Please try a different username or try again later.');
         });
 
         setLoading(true);

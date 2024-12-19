@@ -8,6 +8,7 @@ import LeagueSelector from "./LeagueSelector";
 import WallOfShame from "./WallOfShame";
 import LoadingSpinner from "./LoadingSpinner";
 import ResetButton from "./ResetButton";
+import ErrorModal from "./ErrorModal";
 
 export default function Home() {
   const [leagueSelectorOpen, setLeagueSelectorOpen] = useState(false);
@@ -21,6 +22,10 @@ export default function Home() {
   const [loadingText, setLoadingText] = useState('');
 
   const [wallData, setWallData] = useState([]);
+
+  const [errorStatus, setErrorStatus] = useState(false);
+  const [errorTitle, setErrorTitle] = useState('');
+  const [errorText, setErrorText] = useState('');
 
   const handleWallOfShameGeneration = (league) => {
     setLoading(true);
@@ -52,7 +57,9 @@ export default function Home() {
         setLoading(false);
         setLoadingText('');
 
-        alert(error);
+        setErrorStatus(true);
+        setErrorTitle('No data found');
+        setErrorText('Either your league does not exist or there is no data. Please try a different league or try again later.');
     });
     
   };
@@ -74,10 +81,12 @@ export default function Home() {
         <h3>
           A tool to see the <u>worst</u> scoring performances in the history of { selectedLeagueName.length > 0 ? <u>{selectedLeagueName}</u> : "your fantasy football league"}.
         </h3>
-        { wallVisible ? null : <UsernameForm setLeagueDialogOpen={setLeagueSelectorOpen} setLeagues={setLeagues} setLoading={setLoading} setLoadingText={setLoadingText} /> }
+        { wallVisible ? null : <UsernameForm setLeagueDialogOpen={setLeagueSelectorOpen} setLeagues={setLeagues} setLoading={setLoading} setLoadingText={setLoadingText} setErrorStatus={setErrorStatus} setErrorTitle={setErrorTitle} setErrorText={setErrorText} /> }
         <LeagueSelector dialogOpen={leagueSelectorOpen} setDialogOpen={setLeagueSelectorOpen} leagues={leagues} setLoading={setLoading} setLoadingText={setLoadingText} generator={handleWallOfShameGeneration} />
         { wallVisible ? <WallOfShame data={wallData} /> : null }
         { wallVisible ? <ResetButton resetFunction={handleReset} /> : null }
+
+        <ErrorModal open={errorStatus} setOpen={setErrorStatus} title={errorTitle} text={errorText} />
         <LoadingSpinner open={loading} text={loadingText} />
       </main>
       <footer className={styles.footer}>
