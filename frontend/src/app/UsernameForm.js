@@ -49,6 +49,7 @@ export default function UsernameForm({ setLeagueDialogOpen, setLeagues, setLoadi
             <Stack direction='row' spacing={2} >
 
                 <TextField
+                    autoFocus
                     label="Sleeper Username"
                     variant="outlined"
                     fullWidth
