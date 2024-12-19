@@ -7,10 +7,11 @@ import UsernameForm from "./UsernameForm";
 import LeagueSelector from "./LeagueSelector";
 import WallOfShame from "./WallOfShame";
 import LoadingSpinner from "./LoadingSpinner";
+import ResetButton from "./ResetButton";
 
 export default function Home() {
   const [leagueSelectorOpen, setLeagueSelectorOpen] = useState(false);
-  const [leagues, setLeagues] = useState([{ name: 'Test League', id: 123}, { name: 'Test League 2', id: 456}]);
+  const [leagues, setLeagues] = useState([]);
 
   const [selectedLeagueName, setSelectedLeagueName] = useState('');
   const [selectedLeagueId, setSelectedLeagueId] = useState('');
@@ -56,6 +57,16 @@ export default function Home() {
     
   };
 
+  const handleReset = () => {
+    setSelectedLeagueName('');
+    setSelectedLeagueId('');
+    setWallData([]);
+
+    setWallVisible(false);
+    setLeagueSelectorOpen(false);
+    setLeagues([]);
+  };
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -66,6 +77,7 @@ export default function Home() {
         { wallVisible ? null : <UsernameForm setLeagueDialogOpen={setLeagueSelectorOpen} setLeagues={setLeagues} setLoading={setLoading} setLoadingText={setLoadingText} /> }
         <LeagueSelector dialogOpen={leagueSelectorOpen} setDialogOpen={setLeagueSelectorOpen} leagues={leagues} setLoading={setLoading} setLoadingText={setLoadingText} generator={handleWallOfShameGeneration} />
         { wallVisible ? <WallOfShame data={wallData} /> : null }
+        { wallVisible ? <ResetButton resetFunction={handleReset} /> : null }
         <LoadingSpinner open={loading} text={loadingText} />
       </main>
       <footer className={styles.footer}>
