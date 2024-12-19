@@ -61,8 +61,7 @@ export default function Home() {
       <main className={styles.main}>
         <h1 className={styles.title}>HaterFF</h1>
         <h3>
-          A tool to see the <u>worst</u> scoring performances in the history of your
-          fantasy football league.
+          A tool to see the <u>worst</u> scoring performances in the history of { selectedLeagueName.length > 0 ? <u>{selectedLeagueName}</u> : "your fantasy football league"}.
         </h3>
         { wallVisible ? null : <UsernameForm setLeagueDialogOpen={setLeagueSelectorOpen} setLeagues={setLeagues} setLoading={setLoading} setLoadingText={setLoadingText} /> }
         <LeagueSelector dialogOpen={leagueSelectorOpen} setDialogOpen={setLeagueSelectorOpen} leagues={leagues} setLoading={setLoading} setLoadingText={setLoadingText} generator={handleWallOfShameGeneration} />
