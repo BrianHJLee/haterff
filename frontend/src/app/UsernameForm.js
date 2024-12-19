@@ -55,7 +55,7 @@ export default function UsernameForm({ setLeagueDialogOpen, setLeagues, setLoadi
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
+                        if (e.key === 'Enter' && username.length > 0) {
                             handleUsernameSubmit();
                         }
                     }}
